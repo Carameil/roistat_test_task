@@ -14,6 +14,8 @@ class LogInfo
     private array $agents = [];
     private array $statusCodes = [];
 
+    private array $tmpUrls = [];
+
     public function __construct(LogInspectionService $logService)
     {
         $this->logService = $logService;
@@ -22,6 +24,16 @@ class LogInfo
     public function increaseViews(): void
     {
         $this->views++;
+    }
+
+    public function findUnqUrl(string $url): void
+    {
+        $this->tmpUrls = $this->logService->findUnqUrl($url);
+    }
+
+    public function calcUnqUrls(): void
+    {
+        $this->uniqueUrls = count($this->tmpUrls);
     }
 
 

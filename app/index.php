@@ -27,7 +27,10 @@ foreach ($reader->getLines(PATH_TO_FILE) as $line) {
         die($exception->getMessage());
     }
     $calculator->increaseViews();
+    $calculator->findUnqUrl($data['requestHeader:Referer']);
+
 }
+$calculator->calcUnqUrls();
 
 $statistic = $calculator->getAllStats();
 header('Content-Type: application/json; charset=utf-8');
