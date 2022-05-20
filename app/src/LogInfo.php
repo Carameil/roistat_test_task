@@ -41,6 +41,15 @@ class LogInfo
         $this->traffic += $bytes;
     }
 
+    public function calcStatCodes(int $status): void
+    {
+        if (isset($this->statusCodes[$status])) {
+            $this->statusCodes[$status] += 1;
+        } else {
+            $this->statusCodes[$status] = 1;
+        }
+    }
+
 
     #[ArrayShape([
         'views' => "int",
