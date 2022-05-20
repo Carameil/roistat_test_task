@@ -30,6 +30,7 @@ foreach ($reader->getLines(PATH_TO_FILE) as $line) {
     $calculator->findUnqUrl($data['requestHeader:Referer']);
     $calculator->calcTraffic($data['responseSize']);
     $calculator->calcStatCodes($data['status']);
+    $calculator->calcAgents($data['requestHeader:User-agent']);
 
 }
 $calculator->calcUnqUrls();

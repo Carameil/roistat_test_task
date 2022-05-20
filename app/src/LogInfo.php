@@ -50,6 +50,15 @@ class LogInfo
         }
     }
 
+    public function calcAgents(string $rawAgent): void
+    {
+        $tmpAgent = $this->logService->findAgent($rawAgent);
+        if (isset($this->agents[$tmpAgent])) {
+            $this->agents[$tmpAgent] += 1;
+        } else {
+            $this->agents[$tmpAgent] = 1;
+        }
+    }
 
     #[ArrayShape([
         'views' => "int",
