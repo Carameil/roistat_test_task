@@ -34,6 +34,7 @@ foreach ($reader->getLines(PATH_TO_FILE) as $line) {
 
 }
 $calculator->calcUnqUrls();
+$calculator->sortArrays();
 
 $statistic = $calculator->getAllStats();
 header('Content-Type: application/json; charset=utf-8');

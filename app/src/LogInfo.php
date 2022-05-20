@@ -58,6 +58,13 @@ class LogInfo
         } else {
             $this->agents[$tmpAgent] = 1;
         }
+
+    }
+
+    public function sortArrays(): void
+    {
+        ksort($this->agents,SORT_STRING);
+        ksort($this->statusCodes,SORT_NUMERIC);
     }
 
     #[ArrayShape([
