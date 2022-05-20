@@ -26,4 +26,9 @@ foreach ($reader->getLines(PATH_TO_FILE) as $line) {
     } catch (\Throwable $exception) {
         die($exception->getMessage());
     }
+    $calculator->increaseViews();
 }
+
+$statistic = $calculator->getAllStats();
+header('Content-Type: application/json; charset=utf-8');
+echo json_encode($statistic);

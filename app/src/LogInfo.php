@@ -19,6 +19,11 @@ class LogInfo
         $this->logService = $logService;
     }
 
+    public function increaseViews(): void
+    {
+        $this->views++;
+    }
+
 
     #[ArrayShape([
         'views' => "int",
