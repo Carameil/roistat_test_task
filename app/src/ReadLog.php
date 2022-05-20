@@ -6,7 +6,7 @@ use Exception;
 
 class ReadLog
 {
-    public function getLines($pathToFile)
+    public function getLines($pathToFile): \Generator
     {
         try {
             $f = fopen($pathToFile, 'r');

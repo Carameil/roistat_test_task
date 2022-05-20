@@ -6,11 +6,18 @@ use JetBrains\PhpStorm\ArrayShape;
 
 class LogInfo
 {
+    private LogInspectionService $logService;
+
     private int $views = 0;
     private int $uniqueUrls = 0;
     private int $traffic = 0;
     private array $agents = [];
     private array $statusCodes = [];
+
+    public function __construct(LogInspectionService $logService)
+    {
+        $this->logService = $logService;
+    }
 
 
     #[ArrayShape([
