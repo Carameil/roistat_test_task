@@ -36,6 +36,11 @@ class LogInfo
         $this->uniqueUrls = count($this->tmpUrls);
     }
 
+    public function calcTraffic(int $bytes): void
+    {
+        $this->traffic += $bytes;
+    }
+
 
     #[ArrayShape([
         'views' => "int",

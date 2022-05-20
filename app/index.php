@@ -28,6 +28,7 @@ foreach ($reader->getLines(PATH_TO_FILE) as $line) {
     }
     $calculator->increaseViews();
     $calculator->findUnqUrl($data['requestHeader:Referer']);
+    $calculator->calcTraffic($data['responseSize']);
 
 }
 $calculator->calcUnqUrls();
