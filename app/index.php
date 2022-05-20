@@ -4,6 +4,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use App\ReadLog;
 use BenMorel\ApacheLogParser\Parser;
+use App\LogInfo;
 
 const PATH_TO_FILE = __DIR__ . '/logs/access_log';
 /*
@@ -15,7 +16,7 @@ $reader = new ReadLog();
  * @link https://github.com/BenMorel/apache-log-parser
  * */
 $parser = new Parser($logFormat);
-
+$calculator = new LogInfo();
 
 foreach ($reader->getLines(PATH_TO_FILE) as $line) {
     try {
