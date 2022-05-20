@@ -16,3 +16,11 @@ $reader = new ReadLog();
  * */
 $parser = new Parser($logFormat);
 
+
+foreach ($reader->getLines(PATH_TO_FILE) as $line) {
+    try {
+        $data = $parser->parse($line, true);
+    } catch (\Throwable $exception) {
+        die($exception->getMessage());
+    }
+}
