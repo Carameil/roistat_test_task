@@ -11,7 +11,12 @@ class LogInfo
     private int $views = 0;
     private int $uniqueUrls = 0;
     private int $traffic = 0;
-    private array $agents = [];
+    private array $bots = [
+        'Google' => 0,
+        'Bing' => 0,
+        'Baidu' => 0,
+        'Yandex' => 0
+    ];
     private array $statusCodes = [];
 
     private array $tmpUrls = [];
@@ -28,7 +33,7 @@ class LogInfo
 
     public function findUnqUrl(string $url): void
     {
-        $this->tmpUrls = $this->logService->findUnqUrl($url);
+        $this->tmpUrls = $this->logService->findUnqUrls($url);
     }
 
     public function calcUnqUrls(): void
@@ -36,9 +41,11 @@ class LogInfo
         $this->uniqueUrls = count($this->tmpUrls);
     }
 
-    public function calcTraffic(int $bytes): void
+    public function calcTraffic(int $bytes, int $status): void
     {
-        $this->traffic += $bytes;
+        if ($status >= 200 && $status < 300) {
+            $this->traffic += $bytes;
+        }
     }
 
     public function calcStatCodes(int $status): void
@@ -50,36 +57,37 @@ class LogInfo
         }
     }
 
-    public function calcAgents(string $rawAgent): void
+    public function calcBots(string $rawAgent): void
     {
-        $tmpAgent = $this->logService->findAgent($rawAgent);
-        if (isset($this->agents[$tmpAgent])) {
-            $this->agents[$tmpAgent] += 1;
-        } else {
-            $this->agents[$tmpAgent] = 1;
+        $tmpBots = LogInspectionService::findBot($rawAgent);
+        if ($tmpBots != '') {
+            if (isset($this->bots[$tmpBots])) {
+                $this->bots[$tmpBots] += 1;
+            } else {
+                $this->bots[$tmpBots] = 1;
+            }
         }
-
     }
 
     public function sortArrays(): void
     {
-        ksort($this->agents,SORT_STRING);
-        ksort($this->statusCodes,SORT_NUMERIC);
+        ksort($this->bots, SORT_STRING);
+        ksort($this->statusCodes, SORT_NUMERIC);
     }
 
     #[ArrayShape([
         'views' => "int",
-        'uniqueUrl' => "int",
+        'uniqueUrls' => "int",
         'traffic' => "int",
-        'agents' => "array",
+        'bots' => "array",
         'statusCodes' => "array"
     ])] public function getAllStats(): array
     {
         return [
             'views' => $this->views,
-            'uniqueUrl' => $this->uniqueUrls,
+            'uniqueUrls' => $this->uniqueUrls,
             'traffic' => $this->traffic,
-            'agents' => $this->agents,
+            'bots' => $this->bots,
             'statusCodes' => $this->statusCodes,
         ];
     }

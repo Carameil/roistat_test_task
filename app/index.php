@@ -27,10 +27,10 @@ foreach ($reader->getLines(PATH_TO_FILE) as $line) {
         die($exception->getMessage());
     }
     $calculator->increaseViews();
-    $calculator->findUnqUrl($data['requestHeader:Referer']);
-    $calculator->calcTraffic($data['responseSize']);
+    $calculator->findUnqUrl($data['firstRequestLine']);
+    $calculator->calcTraffic($data['responseSize'],$data['status']);
     $calculator->calcStatCodes($data['status']);
-    $calculator->calcAgents($data['requestHeader:User-agent']);
+    $calculator->calcBots($data['requestHeader:User-agent']);
 
 }
 $calculator->calcUnqUrls();
